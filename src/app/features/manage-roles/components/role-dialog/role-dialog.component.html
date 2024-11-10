@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>{{dialogTitle}}</h2>
+<form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Código</mat-label>
+      <input matInput formControlName="code">
+      @if (roleForm.get('code')?.hasError('required')) {
+        <mat-error>El código es requerido</mat-error>
+      }
+      @if (roleForm.get('code')?.hasError('pattern')) {
+        <mat-error>El código debe contener solo letras mayúsculas y guiones bajos</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name">
+      @if (roleForm.get('name')?.hasError('required')) {
+        <mat-error>
+          El nombre es requerido
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="description" rows="3"></textarea>
+      @if (roleForm.get('description')?.hasError('required')) {
+        <mat-error>
+          La descripción es requerida
+        </mat-error>
+      }
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!roleForm.valid">
+      {{data.role ? 'Actualizar' : 'Crear'}}
+    </button>
+  </mat-dialog-actions>
+</form>

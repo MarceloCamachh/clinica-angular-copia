@@ -1,0 +1,107 @@
+@use "styles/components/form/form" as *;
+
+.popup-form {
+  width: 100%;
+  max-width: 600px; // Limitar el ancho máximo para pantallas grandes
+  margin: 0 auto; // Centrar el formulario
+}
+
+.whole-page-form {
+  width: 100%;
+  max-width: 1200px; // Limitar el ancho máximo para pantallas grandes
+  margin: 0 auto; // Centrar el formulario
+  padding: 20px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  
+  mat-form-field {
+    width: 100%;
+    
+    .mat-mdc-form-field-wrapper {
+      padding-bottom: 0;
+    }
+    
+    input, mat-select {
+      height: 40px;
+      font-size: 14px;
+    }
+    
+    mat-label {
+      font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-card-wrapper {
+    padding: 8px;
+  }
+}
+
+mat-dialog-actions {
+  padding: 16px 0 0;
+  margin: 0;
+  
+  button {
+    min-width: 120px;
+    
+    &[type="submit"] {
+      margin-left: 8px;
+    }
+  }
+}
+
+.form-card-wrapper {
+  padding: 16px;
+  
+  .popup-form {
+    .login-card {
+      box-shadow: none;
+      padding: 0;
+      
+      mat-card-title {
+        font-size: 20px;
+        margin-bottom: 24px;
+        color: var(--primary-color);
+      }
+      
+      mat-card-content {
+        padding: 0;
+      }
+    }
+  }
+}
+
+.user-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    padding: 0.5rem;
+    
+    mat-form-field {
+      width: 100%;
+    }
+    
+    .form-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

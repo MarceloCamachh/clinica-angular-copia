@@ -1,0 +1,45 @@
+@use "abstracts" as *;
+@use "components/table" as *;
+
+.table-wrapper {
+  margin-top: 1rem;
+  overflow: hidden;
+  border-radius: 8px;
+
+  table {
+    width: 100%;
+  }
+
+  .mat-mdc-header-cell {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    text-align: left;
+    padding: 1rem;
+  }
+
+  .mat-mdc-cell {
+    padding: 1rem;
+  }
+
+  .actions-column {
+    width: 120px;
+    text-align: center;
+  }
+
+  .mat-mdc-row:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}
+
+.actions-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

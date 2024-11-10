@@ -1,0 +1,46 @@
+@use "abstracts" as *;
+@use "components/table" as *;
+
+.patients-section {
+  padding: 1rem;
+  width: 100%;
+  max-width: 100%;
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+  }
+}
+
+.actions-container {
+  margin-bottom: 1rem;
+  
+  button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 100px;
+}
+
+.actions-column {
+  width: 120px;
+  text-align: center;
+  padding: 0 8px !important;
+}
+
+::ng-deep .mat-mdc-table {
+  .mat-mdc-row {
+    .mat-mdc-cell.actions-column {
+      overflow: visible;
+      z-index: 1;
+    }
+  }
+}
