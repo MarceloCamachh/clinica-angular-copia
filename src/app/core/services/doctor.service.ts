@@ -13,7 +13,7 @@ import { HttpParamsHelper } from '@app/shared/helpers/httpParamsHelper';
   providedIn: 'root'
 })
 export class DoctorService {
-  private apiUrl = environment +'/doctors';
+  private apiUrl = `${environment.apiUrl}/doctors`;
   private httpParamsHelper = new HttpParamsHelper();
 
   constructor(private http: HttpClient) {}
