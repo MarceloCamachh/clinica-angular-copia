@@ -26,17 +26,37 @@ export class BitacoraComponent implements OnInit {
   cargarBitacoras(): void {
     this.bitacoraService.obtenerBitacoras().subscribe({
       next: (data) => {
-        // Asegúrate de que 'timestamp' sea un string o null
-        this.bitacoras = data.map(item => ({
-          ...item,
-          timestamp: item.timestamp ? this.datePipe.transform(item.timestamp, 'short') : null  // Usar null si no se puede formatear
-        }));
+        // Mapeamos los datos de la respuesta y formateamos la fecha
+        this.bitacoras = data.map(item => {
+          const timestampArray = item.timestamp;
+          
+          // Asegurémonos de convertir todos los valores a números
+          const date = timestampArray 
+            ? new Date(
+                Number(timestampArray[0]), // Año
+                Number(timestampArray[1]) - 1, // Mes (ajustado a base 0)
+                Number(timestampArray[2]), // Día
+                Number(timestampArray[3]), // Hora
+                Number(timestampArray[4]), // Minuto
+                Number(timestampArray[5]), // Segundo
+                Number(timestampArray[6])  // Milisegundo
+              )
+            : null;
+          
+          return {
+            ...item,
+            timestamp: date ? this.datePipe.transform(date, 'short') : 'Fecha no disponible'  // Usar formato 'short' o asignar 'Fecha no disponible'
+          };
+        });
+        console.log('Bitacoras cargadas:', this.bitacoras);  // Verifica que los datos estén correctamente formateados
       },
       error: (error) => {
         console.error('Error al cargar bitácoras:', error);
       }
     });
   }
+  
+  
   
 
   registrarAccion(): void {
