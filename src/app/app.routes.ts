@@ -14,8 +14,10 @@ import { ManageSpecialtiesPageComponent } from './features/manage-specialties/pa
 import { ManageDoctorsPageComponent } from './features/manage-doctors/pages/manage-doctor-page/manage-doctor-page.component';
 import { ManageSchedulesPageComponent } from './features/manage-schedules/pages/manage-schedules-page/manage-schedules-page.component';
 import { ManageBitacorasPageComponent } from './features/bitacora/bitacora.component';
+import { ManageRolesComponent } from './features/manage-roles/manage-roles.component';
 //import { ManageRolesComponent } from './features/manage-roles/manage-roles.component';
 //import { ManagePatientsComponent } from './features/manage-patients/pages/manage-users-page/manage-patients.component';
+import { ManagePatientsPageComponent } from './features/manage-patients/pages/manage-patients-page/manage-patients-page.component';
 
 export const routes: Routes = [
   { path: PathConstants.HOME_PATH, component: HomepageComponent },
@@ -77,7 +79,8 @@ export const routes: Routes = [
       expectedRoles: <UserRole[]>[UserRole.ADMIN, UserRole.REGISTRAR],
     },
   },
-/*   {
+  
+   {
     path: PathConstants.MANAGE_SCHEDULES_PATH,
     component: ManageSchedulesPageComponent,
     canActivate: [authGuard],
@@ -96,12 +99,12 @@ export const routes: Routes = [
   },
   {
     path: PathConstants.MANAGE_PATIENTS_PATH,
-    component: ManagePatientsComponent,
+    component: ManagePatientsPageComponent,
     canActivate: [authGuard],
     data: {
       expectedRoles: <UserRole[]>[UserRole.ADMIN, UserRole.REGISTRAR],
     },
-  }, */
+  }, 
 
   { path: '**', redirectTo: '' },
 ];
