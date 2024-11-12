@@ -94,11 +94,23 @@ export class NavComponent {
       allowedRoles: [UserRole.ADMIN, ],
     },
     {
+      listItemText: 'Gestionar Roles',
+      listItemPath: PathConstants.MANAGE_ROLES_PATH,
+      requireLogin: true,
+      allowedRoles: [UserRole.ADMIN],
+    },
+    {
       listItemText: 'Gestionar Bitacora',
       listItemPath: PathConstants.MANAGE_BITACORA_PATH,
       requireLogin: true,
       allowedRoles: [UserRole.ADMIN, ],
     },
+    { 
+      listItemText: 'Gestión de Pacientes', 
+      listItemPath: PathConstants.MANAGE_PATIENTS_PATH,
+      requireLogin: true,
+      allowedRoles: [UserRole.ADMIN]
+    }, 
     /* { 
       listItemText: 'Gestión de Asegurados', 
       listItemPath: PathConstants.MANAGE_PATIENTS_PATH,
