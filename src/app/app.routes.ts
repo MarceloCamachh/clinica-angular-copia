@@ -13,8 +13,9 @@ import { MyAppointmentsComponent } from './features/my-appointments/pages/my-app
 import { ManageSpecialtiesPageComponent } from './features/manage-specialties/pages/manage-specialties-page/manage-specialties-page.component';
 import { ManageDoctorsPageComponent } from './features/manage-doctors/pages/manage-doctor-page/manage-doctor-page.component';
 import { ManageSchedulesPageComponent } from './features/manage-schedules/pages/manage-schedules-page/manage-schedules-page.component';
-import { ManageRolesComponent } from './features/manage-roles/manage-roles.component';
-import { ManagePatientsPageComponent } from './features/manage-patients/pages/manage-patients-page/manage-patients-page.component';
+import { BitacoraComponent } from './features/bitacora/bitacora.component';
+//import { ManageRolesComponent } from './features/manage-roles/manage-roles.component';
+//import { ManagePatientsComponent } from './features/manage-patients/pages/manage-users-page/manage-patients.component';
 
 export const routes: Routes = [
   { path: PathConstants.HOME_PATH, component: HomepageComponent },
@@ -68,15 +69,23 @@ export const routes: Routes = [
       expectedRoles: <UserRole[]>[UserRole.ADMIN, UserRole.REGISTRAR],
     },
   },
-   {
+  {
+    path: PathConstants.MANAGE_BITACORA_PATH,
+    component: BitacoraComponent,
+    canActivate: [authGuard],
+    data: {
+      expectedRoles: <UserRole[]>[UserRole.ADMIN, UserRole.REGISTRAR],
+    },
+  },
+/*   {
     path: PathConstants.MANAGE_SCHEDULES_PATH,
     component: ManageSchedulesPageComponent,
     canActivate: [authGuard],
     data: {
       expectedRoles: <UserRole[]>[UserRole.ADMIN, UserRole.DOCTOR],
     },
+    
   },
-  
   {
     path: PathConstants.MANAGE_ROLES_PATH,
     component: ManageRolesComponent,
@@ -85,15 +94,14 @@ export const routes: Routes = [
       expectedRoles: <UserRole[]>[UserRole.ADMIN],
     },
   },
-  
   {
     path: PathConstants.MANAGE_PATIENTS_PATH,
-    component: ManagePatientsPageComponent,
+    component: ManagePatientsComponent,
     canActivate: [authGuard],
     data: {
       expectedRoles: <UserRole[]>[UserRole.ADMIN, UserRole.REGISTRAR],
     },
-  }, 
+  }, */
 
   { path: '**', redirectTo: '' },
 ];

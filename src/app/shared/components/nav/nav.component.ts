@@ -94,17 +94,17 @@ export class NavComponent {
       allowedRoles: [UserRole.ADMIN, ],
     },
     {
-      listItemText: 'Gestionar Roles',
-      listItemPath: PathConstants.MANAGE_ROLES_PATH,
+      listItemText: 'Gestionar Bitacora',
+      listItemPath: PathConstants.MANAGE_BITACORA_PATH,
       requireLogin: true,
       allowedRoles: [UserRole.ADMIN, ],
     },
-     { 
-      listItemText: 'Gestión de Pacientes', 
+    /* { 
+      listItemText: 'Gestión de Asegurados', 
       listItemPath: PathConstants.MANAGE_PATIENTS_PATH,
       requireLogin: true,
       allowedRoles: [UserRole.ADMIN]
-    }, 
+    }, */
   ];
 
   protected readonly PathConstants = PathConstants;
