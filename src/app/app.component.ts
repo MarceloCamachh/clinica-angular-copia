@@ -23,7 +23,7 @@ export class AppComponent implements OnInit{
         this.registrarAccion('Usuario Navegó', `Accedió a ${event.urlAfterRedirects}`);
       }
     });
-  }
+  }//
   registrarAccion(username: string, action: string): void {
     // Aquí puedes obtener el nombre del usuario de una sesión o autenticación JWT
     // Por ejemplo, si tienes un servicio de autenticación puedes obtener el nombre de usuario.
