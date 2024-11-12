@@ -1,21 +1,21 @@
 <div>
-    <button (click)="registrarAccion()">Registrar acción</button>
-    <h2>Bitácora de acciones</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Usuario</th>
-          <th>Acción</th>
-          <th>Fecha y Hora</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let bitacora of bitacoras">
-          <td>{{ bitacora.username }}</td>
-          <td>{{ bitacora.action }}</td>
-          <td>{{ bitacora.timestamp }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+  <button (click)="registrarAccion()">Registrar acción</button>
+  <h2>Bitácora de acciones</h2>
+  <table *ngIf="bitacoras.length > 0">
+    <thead>
+      <tr>
+        <th>Usuario</th>
+        <th>Acción</th>
+        <th>Fecha y Hora</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bitacora of bitacoras">
+        <td>{{ bitacora.username }}</td>
+        <td>{{ bitacora.action }}</td>
+        <td>{{ bitacora.timestamp }}</td>  <!-- Ya se formatea en el componente -->
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="bitacoras.length === 0">No hay registros en la bitácora.</p>
+</div>
