@@ -18,6 +18,13 @@ import { CommonModule } from '@angular/common';  // Importamos CommonModule
     CommonModule,  // Asegúrate de importar CommonModule
     MatTableModule,  // Asegúrate de importar el MatTableModule
     MatPaginatorModule,  // Asegúrate de importar el MatPaginatorModule
+    DatePipe,
+  ],
+  providers: [
+    BitacoraService,
+    SpinnerService,
+    SnackbarService,
+    DatePipe // Asegúrate de incluir DatePipe si lo usas
   ],
   templateUrl: './bitacora.component.html',
   styleUrls: ['./bitacora.component.css'],
