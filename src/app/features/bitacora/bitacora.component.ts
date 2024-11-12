@@ -1,69 +1,79 @@
-import { Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';  // Importa DatePipe
-import { BitacoraService } from '../../core/services/bitacoraService';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { BitacoraService } from '@app/core/services/bitacoraService'; 
+import { MatPaginator } from '@angular/material/paginator'; 
+import { MatTable, MatTableDataSource } from '@angular/material/table'; 
+import { Bitacora } from '@app/core/models/bitacora'; 
+import { SpinnerService } from '@app/shared/spinner/spinner.service'; 
+import { SnackbarService } from '@app/shared/services/snackbar.service'; 
+import { DatePipe } from '@app/shared/pipes/date.pipe'; // Para formatear la fecha
 
-interface Bitacora { 
-  username: string; 
-  action: string; 
-  timestamp: string|null; 
-}
+import { MatTableModule } from '@angular/material/table';  // Importamos MatTableModule para la tabla
+import { MatPaginatorModule } from '@angular/material/paginator';  // Importamos MatPaginatorModule para la paginación
+import { CommonModule } from '@angular/common';  // Importamos CommonModule
 
 @Component({
   selector: 'app-bitacora',
+  standalone: true,  // Esto le dice a Angular que este componente es independiente y no requiere un módulo adicional
+  imports: [
+    CommonModule,  // Asegúrate de importar CommonModule
+    MatTableModule,  // Asegúrate de importar el MatTableModule
+    MatPaginatorModule,  // Asegúrate de importar el MatPaginatorModule
+  ],
   templateUrl: './bitacora.component.html',
   styleUrls: ['./bitacora.component.css'],
-  providers: [DatePipe]  // Agrega DatePipe a los proveedores del componente
 })
-export class BitacoraComponent implements OnInit {
-  bitacoras: Bitacora[] = [];
+export class ManageBitacorasPageComponent implements OnInit, AfterViewInit {
+  @ViewChild(MatPaginator) paginator?: MatPaginator;
+  dataSource: MatTableDataSource<Bitacora> = new MatTableDataSource<Bitacora>();
 
-  constructor(private bitacoraService: BitacoraService, private datePipe: DatePipe) { }  // Inyecta DatePipe
+  displayedColumns: string[] = ['username', 'action', 'timestamp']; // Definimos las columnas que se van a mostrar en la tabla
+
+  constructor(
+    private readonly bitacoraService: BitacoraService,
+    private readonly spinnerService: SpinnerService,
+    private readonly snackBarService: SnackbarService,
+    private readonly datePipe: DatePipe
+  ) {}
 
   ngOnInit(): void {
-    this.cargarBitacoras();
+    this.loadBitacoras();  // Cargar las bitácoras cuando se inicializa el componente
   }
 
-  cargarBitacoras(): void {
+  ngAfterViewInit() {
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;  // Asignamos el paginator a la dataSource
+    }
+  }
+
+  loadBitacoras(): void {
+    this.spinnerService.show();  // Mostrar el spinner mientras cargamos los datos
+
     this.bitacoraService.obtenerBitacoras().subscribe({
-      next: (data) => {
-        // Mapeamos los datos de la respuesta y formateamos la fecha
-        this.bitacoras = data.map(item => {
-          const timestampArray = item.timestamp;
-          
-          // Asegurémonos de convertir todos los valores a números
-          const date = timestampArray 
-            ? new Date(
-                Number(timestampArray[0]), // Año
-                Number(timestampArray[1]) - 1, // Mes (ajustado a base 0)
-                Number(timestampArray[2]), // Día
-                Number(timestampArray[3]), // Hora
-                Number(timestampArray[4]), // Minuto
-                Number(timestampArray[5]), // Segundo
-                Number(timestampArray[6])  // Milisegundo
-              )
-            : null;
-          
+      next: (bitacoras) => {
+        // Mapear las bitácoras para formatear la fecha
+        const mappedBitacoras = bitacoras.map(item => {
           return {
             ...item,
-            timestamp: date ? this.datePipe.transform(date, 'short') : 'Fecha no disponible'  // Usar formato 'short' o asignar 'Fecha no disponible'
+            timestamp: this.formatTimestamp(item.timestamp)  // Formateamos el timestamp
           };
         });
-        console.log('Bitacoras cargadas:', this.bitacoras);  // Verifica que los datos estén correctamente formateados
+
+        // Asignamos las bitácoras a la tabla
+        this.dataSource = new MatTableDataSource(mappedBitacoras);
+        this.spinnerService.hide();  // Ocultar el spinner después de cargar los datos
       },
       error: (error) => {
-        console.error('Error al cargar bitácoras:', error);
+        this.snackBarService.openFailureSnackBar({
+          message: 'Error al cargar las bitácoras',
+        });
+        this.spinnerService.hide();  // Ocultar el spinner en caso de error
       }
     });
   }
-  
-  
-  
 
-  registrarAccion(): void {
-    const username = 'usuarioEjemplo';  // Este valor debe provenir de la sesión o JWT del usuario
-    const action = 'Acción de ejemplo';  // Aquí puede ser cualquier acción relevante
-    this.bitacoraService.registrarAccion(username, action).subscribe(() => {
-      this.cargarBitacoras();
-    });
+  // Método para formatear el timestamp
+  formatTimestamp(timestamp: string): string {
+    const date = new Date(timestamp);
+    return this.datePipe.transform(date) || 'Fecha no disponible';
   }
 }
