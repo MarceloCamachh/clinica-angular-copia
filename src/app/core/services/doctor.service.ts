@@ -13,7 +13,7 @@ import { HttpParamsHelper } from '@app/shared/helpers/httpParamsHelper';
   providedIn: 'root'
 })
 export class DoctorService {
-  private apiUrl = 'http://localhost:8080/doctors';
+  private apiUrl = 'https://clinica-seguros-backend-production.up.railway.app/doctors';
   private httpParamsHelper = new HttpParamsHelper();
 
   constructor(private http: HttpClient) {}
