@@ -1,0 +1,111 @@
+.medical-record-container {
+  padding: 20px;
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .medical-history-card {
+    margin-bottom: 20px;
+  }
+
+  .history-section {
+    margin: 20px 0;
+
+    h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #2c3e50;
+      margin-bottom: 16px;
+
+      mat-icon {
+        color: #3498db;
+      }
+    }
+  }
+
+  .triage-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .triage-item {
+    border-left: 4px solid #3498db;
+
+    .triage-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .triage-date {
+      font-weight: 500;
+      color: #2c3e50;
+    }
+
+    .triage-nurse {
+      color: #7f8c8d;
+    }
+
+    .priority-badge {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .priority-level_1 { background-color: #e74c3c; color: white; }
+    .priority-level_2 { background-color: #e67e22; color: white; }
+    .priority-level_3 { background-color: #f1c40f; color: black; }
+    .priority-level_4 { background-color: #2ecc71; color: white; }
+    .priority-level_5 { background-color: #3498db; color: white; }
+  }
+
+  .triage-details {
+    padding: 16px 0;
+
+    .chief-complaint {
+      margin-bottom: 16px;
+    }
+
+    .vital-signs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 8px 0;
+    }
+
+    .vital-sign {
+      display: flex;
+      flex-direction: column;
+      
+      .label {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+      }
+
+      .value {
+        font-weight: 500;
+        color: #2c3e50;
+      }
+    }
+
+    .observations {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #ecf0f1;
+    }
+  }
+
+  .no-data {
+    text-align: center;
+    color: #7f8c8d;
+    padding: 20px;
+  }
+}

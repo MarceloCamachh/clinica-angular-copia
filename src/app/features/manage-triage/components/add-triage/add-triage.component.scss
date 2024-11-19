@@ -1,0 +1,72 @@
+.dialog-container {
+  padding: 20px;
+  max-height: 80vh;
+  overflow-y: auto;
+
+  h2 {
+    margin: 0 0 20px;
+    color: var(--primary-color);
+  }
+
+  .triage-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .form-section {
+      h3 {
+        margin: 0 0 16px;
+        color: var(--primary-color);
+        font-size: 1.1em;
+      }
+
+      .form-row {
+        display: flex;
+        gap: 16px;
+        
+        mat-form-field {
+          flex: 1;
+        }
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+      }
+
+      .full-width {
+        width: 100%;
+      }
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 16px;
+
+      button {
+        min-width: 100px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .dialog-container {
+    padding: 16px;
+
+    .triage-form {
+      .form-section {
+        .form-row {
+          flex-direction: column;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    }
+  }
+}

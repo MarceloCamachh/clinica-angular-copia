@@ -1,0 +1,45 @@
+.triage-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .form-section {
+    h3 {
+      margin: 0 0 16px;
+      color: var(--primary-color);
+      font-size: 1.1em;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .full-width {
+      width: 100%;
+      grid-column: 1 / -1;
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px;
+
+    button {
+      min-width: 100px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .triage-form {
+    .form-section {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+}

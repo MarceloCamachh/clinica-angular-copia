@@ -1,0 +1,84 @@
+<section class="personal-record-section">
+  <h2>Mi Historial Médico</h2>
+
+  <div class="personal-record-container">
+    @if (loading) {
+      <div class="loading-container">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+    } @else if (medicalRecord) {
+      <mat-card>
+        <mat-card-content>
+          <div class="record-grid">
+            <div class="record-section">
+              <h3>Información Básica</h3>
+              <mat-divider></mat-divider>
+              <div class="info-item">
+                <span class="label">Tipo de Sangre:</span>
+                <span class="value">{{medicalRecord.bloodType || 'No especificado'}}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Altura:</span>
+                <span class="value">{{medicalRecord.height || 'No especificada'}} cm</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Peso:</span>
+                <span class="value">{{medicalRecord.weight || 'No especificado'}} kg</span>
+              </div>
+            </div>
+
+            <div class="record-section">
+              <h3>Alergias</h3>
+              <mat-divider></mat-divider>
+              @if (medicalRecord.allergies && medicalRecord.allergies.length > 0) {
+                <ul class="list-items">
+                  @for (allergy of medicalRecord.allergies; track allergy) {
+                    <li>{{allergy}}</li>
+                  }
+                </ul>
+              } @else {
+                <p class="no-data">No se han registrado alergias</p>
+              }
+            </div>
+
+            <div class="record-section">
+              <h3>Condiciones Crónicas</h3>
+              <mat-divider></mat-divider>
+              @if (medicalRecord.chronicConditions && medicalRecord.chronicConditions.length > 0) {
+                <ul class="list-items">
+                  @for (condition of medicalRecord.chronicConditions; track condition) {
+                    <li>{{condition}}</li>
+                  }
+                </ul>
+              } @else {
+                <p class="no-data">No se han registrado condiciones crónicas</p>
+              }
+            </div>
+
+            <div class="record-section">
+              <h3>Historia Familiar</h3>
+              <mat-divider></mat-divider>
+              @if (medicalRecord.familyHistory && medicalRecord.familyHistory.length > 0) {
+                <ul class="list-items">
+                  @for (history of medicalRecord.familyHistory; track history) {
+                    <li>{{history}}</li>
+                  }
+                </ul>
+              } @else {
+                <p class="no-data">No se ha registrado historia familiar</p>
+              }
+            </div>
+          </div>
+
+          <app-personal-medical-record 
+            [medicalRecord]="medicalRecord">
+          </app-personal-medical-record>
+        </mat-card-content>
+      </mat-card>
+    } @else {
+      <div class="no-record">
+        <p>No se encontró historial médico</p>
+      </div>
+    }
+  </div>
+</section>

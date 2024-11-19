@@ -1,0 +1,69 @@
+.triage-details {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+
+    h2 {
+      margin: 0;
+      color: var(--primary-color);
+    }
+  }
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    padding: 48px;
+  }
+
+  .error-card {
+    text-align: center;
+    color: var(--warn-color);
+    
+    mat-icon {
+      font-size: 48px;
+      height: 48px;
+      width: 48px;
+      margin-bottom: 16px;
+    }
+  }
+
+  .details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    
+    mat-card {
+      height: 100%;
+      
+      mat-card-header {
+        margin-bottom: 16px;
+      }
+      
+      mat-card-content {
+        p {
+          margin: 8px 0;
+          
+          strong {
+            color: var(--primary-color);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .triage-details {
+    padding: 10px;
+    
+    .details-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

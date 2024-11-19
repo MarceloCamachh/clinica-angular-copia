@@ -1,0 +1,39 @@
+<div class="table-container mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="patient">
+      <th mat-header-cell *matHeaderCellDef>Paciente</th>
+      <td mat-cell *matCellDef="let record">
+        {{record.patient.name}} {{record.patient.surname}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="bloodType">
+      <th mat-header-cell *matHeaderCellDef>Tipo de Sangre</th>
+      <td mat-cell *matCellDef="let record">{{record.bloodType || 'No especificado'}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef>Fecha de Creación</th>
+      <td mat-cell *matCellDef="let record">
+        {{record.createdAt | date:'dd/MM/yyyy'}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let record">
+        <button mat-icon-button color="primary" (click)="editMedicalRecord(record)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteMedicalRecord(record)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+</div>

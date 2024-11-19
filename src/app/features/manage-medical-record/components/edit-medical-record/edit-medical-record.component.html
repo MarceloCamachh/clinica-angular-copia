@@ -1,0 +1,55 @@
+<div class="dialog-container" mat-dialog-content>
+  <h2 mat-dialog-title>Editar Historial Médico</h2>
+  
+  <form [formGroup]="medicalRecordForm" (ngSubmit)="onSubmit()" class="medical-record-form">
+    <div class="form-grid">
+      <div class="patient-info">
+        <h3>Paciente</h3>
+        <p>{{data.medicalRecord.patient.name}} {{data.medicalRecord.patient.surname}}</p>
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Tipo de Sangre</mat-label>
+        <input matInput formControlName="bloodType">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Alergias</mat-label>
+        <textarea matInput formControlName="allergies" rows="2" 
+                  placeholder="Separar por comas"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Condiciones Crónicas</mat-label>
+        <textarea matInput formControlName="chronicConditions" rows="2"
+                  placeholder="Separar por comas"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Historia Familiar</mat-label>
+        <textarea matInput formControlName="familyHistory" rows="2"
+                  placeholder="Separar por comas"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Altura (cm)</mat-label>
+        <input matInput type="number" formControlName="height">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Peso (kg)</mat-label>
+        <input matInput type="number" formControlName="weight">
+      </mat-form-field>
+    </div>
+
+    <div class="actions">
+      <button mat-button type="button" (click)="onCancel()" [disabled]="loading">
+        Cancelar
+      </button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="loading || !medicalRecordForm.valid">
+        <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+        <span *ngIf="!loading">Guardar</span>
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,160 @@
+<form [formGroup]="triageForm" (ngSubmit)="onSubmit()" class="triage-form">
+  <div class="form-section">
+    <h3>Información del Paciente</h3>
+    <div class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Paciente</mat-label>
+        <mat-select formControlName="patientId" required>
+          @for (patient of patients$ | async; track patient.id) {
+            <mat-option [value]="patient.id">
+              {{patient.name}} {{patient.surname}}
+            </mat-option>
+          }
+        </mat-select>
+        <mat-error *ngIf="triageForm.get('patientId')?.errors?.['required']">
+          El paciente es requerido
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="form-section" formGroupName="vitalSigns">
+    <h3>Signos Vitales</h3>
+    <div class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Temperatura (°C)</mat-label>
+        <input matInput type="number" formControlName="temperature">
+        <mat-error *ngIf="triageForm.get('vitalSigns.temperature')?.errors">
+          {{getErrorMessage(triageForm.get('vitalSigns.temperature')?.errors)}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Presión Sistólica (mmHg)</mat-label>
+        <input matInput type="number" formControlName="systolicBP">
+        <mat-error *ngIf="triageForm.get('vitalSigns.systolicBP')?.errors">
+          {{getErrorMessage(triageForm.get('vitalSigns.systolicBP')?.errors)}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Presión Diastólica (mmHg)</mat-label>
+        <input matInput type="number" formControlName="diastolicBP">
+        <mat-error *ngIf="triageForm.get('vitalSigns.diastolicBP')?.errors">
+          {{getErrorMessage(triageForm.get('vitalSigns.diastolicBP')?.errors)}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Frecuencia Cardíaca (lpm)</mat-label>
+        <input matInput type="number" formControlName="heartRate">
+        <mat-error *ngIf="triageForm.get('vitalSigns.heartRate')?.errors">
+          {{getErrorMessage(triageForm.get('vitalSigns.heartRate')?.errors)}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Frecuencia Respiratoria (rpm)</mat-label>
+        <input matInput type="number" formControlName="respiratoryRate">
+        <mat-error *ngIf="triageForm.get('vitalSigns.respiratoryRate')?.errors">
+          {{getErrorMessage(triageForm.get('vitalSigns.respiratoryRate')?.errors)}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Saturación O2 (%)</mat-label>
+        <input matInput type="number" formControlName="oxygenSaturation">
+        <mat-error *ngIf="triageForm.get('vitalSigns.oxygenSaturation')?.errors">
+          {{getErrorMessage(triageForm.get('vitalSigns.oxygenSaturation')?.errors)}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Glucosa (mg/dL)</mat-label>
+        <input matInput type="number" formControlName="bloodGlucose">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3>Evaluación General</h3>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Motivo de Consulta</mat-label>
+      <textarea matInput formControlName="chiefComplaint" rows="3"></textarea>
+      <mat-error *ngIf="triageForm.get('chiefComplaint')?.errors">
+        {{getErrorMessage(triageForm.get('chiefComplaint')?.errors)}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Prioridad</mat-label>
+      <mat-select formControlName="priority">
+        @for (level of priorityLevels; track level) {
+          <mat-option [value]="level.value">{{level.label}}</mat-option>
+        }
+      </mat-select>
+      <mat-error *ngIf="triageForm.get('priority')?.errors">
+        {{getErrorMessage(triageForm.get('priority')?.errors)}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Historia Médica</mat-label>
+      <textarea matInput formControlName="medicalHistory" rows="3"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Alergias</mat-label>
+      <textarea matInput formControlName="allergies" rows="2"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="form-section" formGroupName="neurologicalAssessment">
+    <h3>Evaluación Neurológica</h3>
+    <div class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Respuesta Verbal (1-5)</mat-label>
+        <input matInput type="number" formControlName="verbalResponse">
+        <mat-error *ngIf="triageForm.get('neurologicalAssessment.verbalResponse')?.errors">
+          {{getErrorMessage(triageForm.get('neurologicalAssessment.verbalResponse')?.errors)}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Apertura Ocular (1-4)</mat-label>
+        <input matInput type="number" formControlName="eyeOpening">
+        <mat-error *ngIf="triageForm.get('neurologicalAssessment.eyeOpening')?.errors">
+          {{getErrorMessage(triageForm.get('neurologicalAssessment.eyeOpening')?.errors)}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Respuesta Motora (1-6)</mat-label>
+        <input matInput type="number" formControlName="motorResponse">
+        <mat-error *ngIf="triageForm.get('neurologicalAssessment.motorResponse')?.errors">
+          {{getErrorMessage(triageForm.get('neurologicalAssessment.motorResponse')?.errors)}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Funciones Neurológicas Básicas</mat-label>
+        <textarea matInput formControlName="basicNeurologicalFunctions" rows="3"></textarea>
+        <mat-error *ngIf="triageForm.get('neurologicalAssessment.basicNeurologicalFunctions')?.errors">
+          {{getErrorMessage(triageForm.get('neurologicalAssessment.basicNeurologicalFunctions')?.errors)}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  @if (formType === FormType.PopupForm) {
+    <div class="actions">
+      <button mat-button type="button" (click)="onCancel()" [disabled]="loading">
+        Cancelar
+      </button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="loading || !triageForm.valid">
+        <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+        <span *ngIf="!loading">{{triageData ? 'Actualizar' : 'Guardar'}}</span>
+      </button>
+    </div>
+  }
+</form>

@@ -1,0 +1,27 @@
+<div>
+  <h2>Bitácora de acciones</h2>
+  <table mat-table [dataSource]="dataSource">
+    <!-- Columnas de la tabla -->
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef>Usuario</th>
+      <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Acción</th>
+      <td mat-cell *matCellDef="let element">{{ element.action }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="timestamp">
+      <th mat-header-cell *matHeaderCellDef>Fecha y Hora</th>
+      <td mat-cell *matCellDef="let element">{{ element.timestamp }}</td>
+    </ng-container>
+
+    <!-- Fila de la tabla -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <!-- Paginación -->
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

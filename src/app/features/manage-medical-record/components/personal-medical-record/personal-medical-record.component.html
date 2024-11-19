@@ -1,0 +1,87 @@
+<div class="medical-record-container">
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  } @else if (medicalRecord) {
+    <mat-card class="medical-history-card">
+      <!-- Información Básica -->
+      <mat-card-header>
+        <mat-card-title>Historial Médico</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <!-- Sección de Triages -->
+        @if (mappedHistory.triages.length > 0) {
+          <section class="history-section">
+            <h3>
+              <mat-icon>local_hospital</mat-icon>
+              Historial de Triages
+            </h3>
+            <mat-divider></mat-divider>
+            
+            <div class="triage-list">
+              @for (triage of mappedHistory.triages; track triage.id) {
+                <mat-card *ngFor="let triage of mappedHistory.triages">
+                  <mat-card-header>
+                    <mat-card-title>
+                      Consulta Médica
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                      Dr. {{ triage.doctor }} - {{ triage.especialidad }}
+                    </mat-card-subtitle>
+                  </mat-card-header>
+
+                  <mat-card-content>
+                    <h3>Motivo de consulta</h3>
+                    <p>{{ triage.quejaPrincipal }}</p>
+
+                    <h3>Observaciones</h3>
+                    <p>{{ triage.observaciones }}</p>
+
+                    <h3>Signos Vitales</h3>
+                    <div class="vital-signs-grid">
+                      <div>
+                        <strong>Presión Arterial:</strong> {{ triage.signosVitales.presionArterial }} mmHg
+                      </div>
+                      <div>
+                        <strong>Frecuencia Cardíaca:</strong> {{ triage.signosVitales.frecuenciaCardiaca }} lpm
+                      </div>
+                      <div>
+                        <strong>Temperatura:</strong> {{ triage.signosVitales.temperatura }}°C
+                      </div>
+                      <div>
+                        <strong>Saturación O2:</strong> {{ triage.signosVitales.saturacionOxigeno }}%
+                      </div>
+                      <div>
+                        <strong>Frec. Respiratoria:</strong> {{ triage.signosVitales.frecuenciaRespiratoria }} rpm
+                      </div>
+                    </div>
+
+                    <div class="priority-tag" [ngClass]="'priority-' + triage.prioridad.toLowerCase()">
+                      Prioridad: {{ triage.prioridad }}
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              }
+            </div>
+          </section>
+        } @else {
+          <p class="no-data">No hay registros de triage disponibles</p>
+        }
+      </mat-card-content>
+    </mat-card>
+  } @else {
+    <div class="no-record">
+      <p>No se encontró historial médico</p>
+    </div>
+  }
+
+
+  <div class="actions">
+    <button mat-raised-button color="primary" (click)="openReportGenerator()">
+      <mat-icon>description</mat-icon>
+      Generar Reporte
+    </button>
+  </div>
+</div>

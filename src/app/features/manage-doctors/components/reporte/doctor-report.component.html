@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>Generar Reporte de Doctores</h2>
+
+<mat-dialog-content>
+  <div class="options-section">
+    <mat-card *ngFor="let sectionKey of getObjectKeys(reportOptions)">
+      <mat-card-header>
+        <mat-card-title>{{ reportOptions[sectionKey].label }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-checkbox 
+          *ngFor="let optionKey of getObjectKeys(reportOptions[sectionKey].options)"
+          [(ngModel)]="reportOptions[sectionKey].options[optionKey].selected"
+        >
+          {{ reportOptions[sectionKey].options[optionKey].label }}
+        </mat-checkbox>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div id="report-preview" class="report-preview">
+    <table class="doctors-table">
+      <thead>
+        <tr>
+          <th *ngFor="let section of getObjectKeys(reportOptions)">
+            <ng-container *ngFor="let option of getObjectKeys(reportOptions[section].options)">
+              <ng-container *ngIf="reportOptions[section].options[option].selected">
+                {{ reportOptions[section].options[option].label }}
+              </ng-container>
+            </ng-container>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let doctor of data.doctors">
+          <ng-container *ngFor="let section of getObjectKeys(reportOptions)">
+            <ng-container *ngFor="let option of getObjectKeys(reportOptions[section].options)">
+              <td *ngIf="reportOptions[section].options[option].selected">
+                {{ getDoctorValue(doctor, option) }}
+              </td>
+            </ng-container>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="primary" (click)="exportToPDF()">
+    <mat-icon>picture_as_pdf</mat-icon>
+    Exportar a PDF
+  </button>
+  <button mat-raised-button color="accent" (click)="exportToExcel()">
+    <mat-icon>file_download</mat-icon>
+    Exportar a Excel
+  </button>
+</mat-dialog-actions>

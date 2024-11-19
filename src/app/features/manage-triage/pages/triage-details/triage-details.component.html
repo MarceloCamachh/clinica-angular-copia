@@ -1,0 +1,62 @@
+<section class="triage-details">
+  <div class="header">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>Detalles del Triaje</h2>
+  </div>
+
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  } @else if (error) {
+    <mat-card class="error-card">
+      <mat-card-content>
+        <mat-icon color="warn">error</mat-icon>
+        <p>Error al cargar los detalles del triaje</p>
+      </mat-card-content>
+    </mat-card>
+  } @else if (triage) {
+    <div class="details-grid">
+      <mat-card class="patient-info">
+        <mat-card-header>
+          <mat-card-title>Información del Paciente</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p><strong>Nombre:</strong> {{triage.patient.name}} {{triage.patient.surname}}</p>
+          <p><strong>Email:</strong> {{triage.patient.email}}</p>
+          <p><strong>Teléfono:</strong> {{triage.patient.phoneNumber}}</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="vital-signs">
+        <mat-card-header>
+          <mat-card-title>Signos Vitales</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p><strong>Temperatura:</strong> {{triage.vitalSigns.temperature}}°C</p>
+          <p><strong>Presión Arterial:</strong> {{triage.vitalSigns.systolicBP}}/{{triage.vitalSigns.diastolicBP}} mmHg</p>
+          <p><strong>Frecuencia Cardíaca:</strong> {{triage.vitalSigns.heartRate}} lpm</p>
+          <p><strong>Frecuencia Respiratoria:</strong> {{triage.vitalSigns.respiratoryRate}} rpm</p>
+          <p><strong>Saturación O2:</strong> {{triage.vitalSigns.oxygenSaturation}}%</p>
+          @if (triage.vitalSigns.bloodGlucose) {
+            <p><strong>Glucosa:</strong> {{triage.vitalSigns.bloodGlucose}} mg/dL</p>
+          }
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="assessment">
+        <mat-card-header>
+          <mat-card-title>Evaluación Neurológica</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p><strong>Respuesta Verbal:</strong> {{triage.neurologicalAssessment.verbalResponse}}</p>
+          <p><strong>Apertura Ocular:</strong> {{triage.neurologicalAssessment.eyeOpening}}</p>
+          <p><strong>Respuesta Motora:</strong> {{triage.neurologicalAssessment.motorResponse}}</p>
+          <p><strong>Funciones Neurológicas Básicas:</strong> {{triage.neurologicalAssessment.basicNeurologicalFunctions}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
+</section>

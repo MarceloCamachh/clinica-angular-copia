@@ -1,0 +1,80 @@
+<section>
+  <h2>Gestionar Usuarios</h2>
+  <div class="actions-section">
+    <div class="left-actions">
+      <button
+        (click)="openAddUserDialog()"
+        color="primary"
+        id="add-user-button"
+        mat-raised-button
+      >
+        <mat-icon>add</mat-icon>
+        Añadir usuario
+      </button>
+      <button
+        (click)="openReportDialog()"
+        color="accent"
+        mat-raised-button
+      >
+        <mat-icon>description</mat-icon>
+        Generar Reporte
+      </button>
+    </div>
+    <mat-checkbox
+      (click)="toggleDisabled()"
+      [checked]="showDisabled"
+      color="primary"
+    >
+      Mostrar usuarios deshabilitados
+    </mat-checkbox>
+  </div>
+
+  <div class="table-wrapper mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+      <!-- Columnas principales -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let user">{{user.id}} {{user.name}} {{user.surname}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let user">{{user.email}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>Rol</th>
+        <td mat-cell *matCellDef="let user">{{user.role}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let user">
+          <mat-chip-listbox>
+            <mat-chip-option [color]="user.isEnabled ? 'primary' : 'warn'" [selected]="true" [disabled]="true">
+              {{user.isEnabled ? 'Activo' : 'Inactivo'}}
+            </mat-chip-option>
+          </mat-chip-listbox>
+        </td>
+      </ng-container>
+
+      <!-- Columna de acciones -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="actions-column">Acciones</th>
+        <td mat-cell *matCellDef="let user" class="actions-column">
+          <button mat-icon-button color="primary" (click)="openEditUserDialog(user)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteUser(user)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+  </div>
+</section>

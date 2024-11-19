@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Agregar Nuevo Horario</h2>
+
+<mat-dialog-content>
+  <app-schedule-form
+    [doctorId]="doctorId"
+    (submitForm)="onSubmit($event)">
+    <button mat-button type="button" (click)="onCancel()">Cancelar</button>
+  </app-schedule-form>
+</mat-dialog-content>
